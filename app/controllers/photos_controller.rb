@@ -40,15 +40,19 @@ class PhotosController < ApplicationController
   # POST /photos
   # POST /photos.xml
   def create
-    @photo = Photo.new(params[:photo])
+    if params['Filedata']
+      @photo = Photo.new(params[:photo].merge(:image => params['Filedata']))
+    else
+      @photo = Photo.new(params[:photo])
+    end
 
     respond_to do |format|
       if @photo.save
         format.html { redirect_to(@photo, :notice => 'Photo was successfully created.') }
-        format.xml  { render :xml => @photo, :status => :created, :location => @photo }
+        format.json
       else
         format.html { render :action => "new" }
-        format.xml  { render :xml => @photo.errors, :status => :unprocessable_entity }
+        format.json
       end
     end
   end
