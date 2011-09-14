@@ -1,4 +1,7 @@
 .bundle
+public/system/**/*
 db/*.sqlite3
 log/*.log
 tmp/
+./**/*~
+*~
